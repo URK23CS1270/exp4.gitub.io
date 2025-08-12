@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+<title> Blue Moon Restaurant</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+<nav class="navbar">
+    <div style="display: flex; align-items: center;">
+        <img src="https://www.shutterstock.com/image-vector/moon-logo-simple-strong-elegant-600nw-1496448869.jpg" alt="Logo" />
+        <span class="title"> Blue Moon Restaurant</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#" onclick="openModal('menuModal')">Menu</a></li>
+        <li><a href="#" onclick="openModal('bookingModal')">Reservation Table</a></li>
+        <li><a href="#" onclick="openModal('offersModal')">Offers</a></li>
+        <li><a href="#" onclick="openModal('contactModal')">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- LANDING TEXT -->
+<div class="landing-text">
+    <h1>Welcome to Blue Moon Restaurant</h1>
+    <p><span style="font-style:italic;">Where flavors dance under the stars.
+Experience a blend of fresh ingredients, culinary artistry, and warm ambiance that turns every meal into a memory. From sizzling starters to delicious desserts, 
+    we serve you the best of culinary delights with fresh ingredients and love.</span></p>
+</div>
+
+<!-- LOGIN FORM -->
+<div class="login-form">
+    <h2>Member Login</h2>
+    <form>
+        <input type="text" placeholder="Username" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+    </form>
+    <div class="login-options">
+        <a href="#" onclick="openModal('guestModal')">Login as Guest</a>
+        <a href="#" onclick="openModal('createModal')">Create New Account</a>
+        <a href="#" onclick="openModal('forgotModal')">Forgot Password?</a>
+    </div>
+</div>
+
+<!-- GUEST MODAL -->
+<div id="guestModal" class="modal">
+    <div class="modal-content">
+        <h3>Welcome, Guest!</h3>
+        <p>You are logged in as a guest. Ordering features may be limited.</p>
+        <button onclick="closeModal('guestModal')">OK</button>
+    </div>
+</div>
+
+<!-- CREATE ACCOUNT MODAL -->
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <h3>Create New Account</h3>
+        <input type="text" placeholder="Full Name" />
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button>Create Account</button>
+        <button onclick="closeModal('createModal')">Cancel</button>
+    </div>
+</div>
+
+<!-- FORGOT PASSWORD MODAL -->
+<div id="forgotModal" class="modal">
+    <div class="modal-content">
+        <h3>Forgot Password</h3>
+        <input type="email" placeholder="Enter registered email" />
+        <button>Send Reset Link</button>
+        <button onclick="closeModal('forgotModal')">Cancel</button>
+    </div>
+</div>
+
+<!-- MENU MODAL -->
+<div id="menuModal" class="modal">
+    <div class="modal-content">
+        <h3>Our Special Menu</h3>
+        <ul style="padding-left: 20px; list-style-type: disc;">
+            <li>Grilled Chicken with Herbs - ₹450</li>
+            <li>Paneer Butter Masala - ₹320</li>
+            <li>Italian Platter - ₹850</li>
+            <li>Chicken Biryani Family Combo - ₹1500</li>
+            <li>Any Desserts - ₹200</li>
+            <li>Chocolate Lava Cake - ₹180</li>
+        </ul>
+        <button onclick="closeModal('menuModal')">Close</button>
+    </div>
+</div>
+
+<!-- BOOKING MODAL -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <h3>Reservation Table</h3>
+        <label for="mealType">Select Meal:</label>
+        <select id="mealType" onchange="updateRate()">
+            <option value="">-- Select --</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+        </select>
+        <label>Choose Seating:</label>
+        <label><input type="radio" name="package" value="standard" onchange="updateRate()"> Standard</label>
+        <label><input type="radio" name="package" value="vip" onchange="updateRate()"> VIP</label>
+        <div id="rateOutput" style="margin-top: 10px; font-weight: bold;">Estimated Cost: ₹0</div>
+        <button onclick="closeModal('bookingModal')">Close</button>
+    </div>
+</div>
+
+<!-- OFFERS MODAL -->
+<div id="offersModal" class="modal">
+    <div class="modal-content">
+        <h3>Exclusive Offers</h3>
+        <ul style="padding-left: 20px; list-style-type: disc;">
+            <li>50% OFF on Dinner Buffet</li>
+            <li> Buy 1 Get 1 Free Starters</li>
+            <li>Free Dessert with any Main Course</li>
+            <li>Family Combo Discounts Available</li>
+        </ul>
+        <button onclick="closeModal('offersModal')">Close</button>
+    </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" class="modal">
+    <div class="modal-content">
+        <h3>Contact Us</h3>
+        <p><strong>Phone:</strong> +91 93466 83895</p>
+        <p><strong>Email:</strong> contact@bluemoon.com</p>
+        <button onclick="closeModal('contactModal')">Close</button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p><span style="font-style:italic;">Every flavor has a story, and every story begins with love bcoz</span> <span style="font-weight:bold; font-style:italic;">Every bite feels like heaven at Blue Moon</span>.</p>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+function openModal(id) {
+    document.getElementById(id).style.display = "block";
+}
+function closeModal(id) {
+    document.getElementById(id).style.display = "none";
+}
+window.onclick = function(event) {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (event.target === modal) modal.style.display = "none";
+    });
+}
+function updateRate() {
+    const mealType = document.getElementById("mealType").value;
+    const packages = document.getElementsByName("package");
+    let packageValue = "";
+    for (let p of packages) if (p.checked) packageValue = p.value;
+    let rate = 0;
+    if (mealType === "lunch") {
+        rate = packageValue === "vip" ? 1500 : 900;
+    } else if (mealType === "dinner") {
+        rate = packageValue === "vip" ? 2500 : 1400;
+    }
+    document.getElementById("rateOutput").innerText = "Estimated Cost: ₹" + rate;
+}
+</script>
+
+</body>
+</html>
